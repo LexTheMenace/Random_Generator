@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/src/OldApp.js
+/src/components/NewAppStructure
+/src/components/List
+/src/components/Table
+/src/components/SpinTheBottle
+

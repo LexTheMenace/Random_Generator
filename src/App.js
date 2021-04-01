@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import RandNames from './components/RandomName/RandName';
+// import SpinTheBottle from './components/SpinTheBottle';
 
-function App() {
+const App = () => {
+  const [variable, setVariable] = useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+       <button onClick={() => {
+        let newVar = prompt('What are you choosing?');
+        if (newVar.charAt(newVar.length - 1) === 's') newVar = newVar.slice(0, -1)
+        setVariable(newVar.charAt(0).toUpperCase() + newVar.slice(1));
+      }}> {variable ? 'New Choice' : 'Start'}</button>
+      {variable && <RandNames variable={variable} />}
+      {/* <SpinTheBottle/> */}
     </div>
   );
-}
+};
 
 export default App;

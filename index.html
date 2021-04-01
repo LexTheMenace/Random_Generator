@@ -1,0 +1,104 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="/logo192.png">
+    <link rel="manifest" href="/manifest.json">
+    <title>Random Generator</title>
+  <style>
+  *{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, .app{
+  height: 100vh;
+  width: 100vw;
+}
+.app{
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input{
+  padding: 15px;
+  font-size: 36px;
+}
+button{
+  background: transparent;
+  color: white;
+  border: solid 1px red;
+  margin: 3px 1px;
+  padding: 20px 8px;
+  font-weight: 600;
+  font-size: 18px;
+}
+.rand_names{
+  width: 100%;
+  padding: 5px;
+
+}
+</style>
+</head>
+  <body>
+    <div id="root">
+        <div class="app">
+            <div class="rand_names">
+                <div id='random_display' style="display: none; height: 40px; text-align: center; font-size: 36px; font-weight: 800; color: darkred;"></div>
+                <div style="display: flex; flex-direction: column;"><label>Enter Names</label><span style="max-height: 60px; display: flex; justify-content: center; width: 100%;"><input for="name" id="name_input" type="text" value="" style="max-height: 60px;"><button id='add_btn'>Add Name</button></span><button id='draw_btn'> Draw Name</button><button id='draw_two_btn'> Draw Two</butto><button id='empty_btn'>Empty Bucket</button></div>
+                <div >
+                    <p id='name_list'>
+                    </p>
+                </div>
+            
+            
+            </div>    </div>
+</div>
+<script>
+    const display = document.getElementById('random_display');
+    const name = document.getElementById('name_input')
+    const addBtn = document.getElementById('add_btn');
+    const drawBtn = document.getElementById('draw_btn');
+    const drawTwoBtn = document.getElementById('draw_two_btn');
+
+    const emptyBtn = document.getElementById('empty_btn');
+
+    const nameDiv = document.getElementById('name_list');
+    const delName = document.getElementsByClassName('del_name');
+
+
+    const names = [];
+    let random = null;
+    const addName = () => {
+        names.push(name.value)
+        name.value = ''
+        name.focus();
+        nameDiv.innerHTML = `Names in Bucket: ${(names.map(name => `<span style='display: block;'> ${name}<span class='del_name' style='color: red;'> x</span></span>`).join(''))}`
+    }
+    name.addEventListener('keydown', (e) => e.key === 'Enter' ? addName() : null)
+    addBtn.addEventListener('click', addName)
+    emptyBtn.addEventListener('click', () => { 
+        names.map(name => names.splice(name))
+        nameDiv.innerHTML = ''
+    });
+
+    drawBtn.addEventListener('click', () => {
+        if(names.length === 0) return;
+        random = names[(Math.floor(Math.random() * names.length))]
+        display.style.display = 'block';
+        display.innerHTML = random;
+    });
+    drawTwoBtn.addEventListener('click', () => {
+        const choice1 = names[(Math.floor(Math.random() * names.length))]
+    const choice2 = names.filter(name => name !== choice1)[(Math.floor(Math.random() * (names.length - 1)))]
+    display.style.display = 'block';
+
+    display.innerHTML = `${choice1} and ${choice2}` 
+    })
+
+</script>
+</body></html>
